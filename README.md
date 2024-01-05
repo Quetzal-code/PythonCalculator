@@ -35,8 +35,9 @@ btn = tk.Button(root, text="7", font=("Arial", 15), padx=20, pady=10, bg="#C89B3
 Ejecución
 Asegúrate de tener Python instalado. Puedes ejecutar la calculadora ejecutando el siguiente comando en tu terminal:
 
+```python
 python LeagueOfLegends_calculator.py
-
+```
 
 Contribuciones
 ¡Contribuciones son bienvenidas! Si encuentras algún error o tienes mejoras sugeridas, no dudes en abrir un problema o enviar un pull request en el repositorio.
