@@ -1,7 +1,7 @@
 # Calculadora Simple en Python
 
 Esta es una calculadora simple con interfaz gráfica desarrollada en python utilizando la biblioteca tkinter.
-Basada en el popular juego League Og¿f Legends
+Basada en el popular juego League Of Legends
 
 ## Funcionalidades
 
