@@ -30,7 +30,7 @@ Puedes personalizar la apariencia de la calculadora ajustando los colores en el 
 root.configure(bg="#005A82")  # Color de fondo de la ventana
 entry = tk.Entry(root, font=("Arial", 20), justify="right", bg="#005A82", fg="#C89B3C")  # Color de fondo y texto del área de entrada
 btn = tk.Button(root, text="7", font=("Arial", 15), padx=20, pady=10, bg="#C89B3C", fg="#005A82")  # Color de fondo y texto de los botones
-
+```
 
 Ejecución
 Asegúrate de tener Python instalado. Puedes ejecutar la calculadora ejecutando el siguiente comando en tu terminal:
