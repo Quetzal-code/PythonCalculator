@@ -1,9 +1,7 @@
-# PythonCalculator
-A calculator with Python based in the popular game League Of Legends
-
-# Calculadora Simple
+# Calculadora Simple en Python
 
 Esta es una calculadora simple con interfaz gráfica desarrollada en python utilizando la biblioteca tkinter.
+Basada en el popular juego League Og¿f Legends
 
 ## Funcionalidades
 
