@@ -32,14 +32,14 @@ entry = tk.Entry(root, font=("Arial", 20), justify="right", bg="#005A82", fg="#C
 btn = tk.Button(root, text="7", font=("Arial", 15), padx=20, pady=10, bg="#C89B3C", fg="#005A82")  # Color de fondo y texto de los botones
 ```
 
-Ejecución
+## Ejecución
 Asegúrate de tener Python instalado. Puedes ejecutar la calculadora ejecutando el siguiente comando en tu terminal:
 
 ```python
 python LeagueOfLegends_calculator.py
 ```
 
-Contribuciones
+## Contribuciones
 ¡Contribuciones son bienvenidas! Si encuentras algún error o tienes mejoras sugeridas, no dudes en abrir un problema o enviar un pull request en el repositorio.
 
 Quetzal Uzcategui
