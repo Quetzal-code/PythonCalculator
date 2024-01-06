@@ -52,14 +52,14 @@ display.grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky='nsew')
 button_frame = tk.Frame(base_cal, bg=DARK_BLUE)
 button_frame.grid(row=1, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
 
-# Configura los pesos de las filas y columnas
+# Ajuste de espacio para elementos
 base_cal.grid_rowconfigure(0, weight=1)
 base_cal.grid_columnconfigure(0, weight=1)
 button_frame.grid_rowconfigure(0, weight=1)
 for i in range(4):
     button_frame.grid_columnconfigure(i, weight=1)
 
-# Define los botones y sus posiciones en una lista de tuplas
+# Define los botones y sus posiciones
 buttons = [
     ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
     ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
