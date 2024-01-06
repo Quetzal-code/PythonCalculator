@@ -1,98 +1,91 @@
+"League of Legends Calculator"
 import tkinter as tk
+import re
 
-def click(event):
-    text = event.widget.cget("text")
-    if text == "=":
-        try:
-            result = calculate(entry.get())
-            entry.delete(0, tk.END)
-            entry.insert(tk.END, str(result))
-        except Exception as e:
-            entry.delete(0, tk.END)
-            entry.insert(tk.END, "Error")
-    elif text == "C":
-        entry.delete(0, tk.END)
-    else:
-        entry.insert(tk.END, text)
+# Define los colores
+DARK_BLUE = '#005A82'
+GOLD = '#C89B3C'
+GRAY = '#A09B8C'
+BLACK = '#010A13'
 
-def shunting_yard(tokens):
-    output = []
-    operator_stack = []
-    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+# Función para agregar el valor al display
+def append_to_display(value):
+    display.insert(tk.END, value)
 
-    for token in tokens:
-        if token.isdigit() or '.' in token:
-            output.append(float(token))
-        elif token in precedence:
-            while (operator_stack and operator_stack[-1] in precedence
-                   and precedence[token] <= precedence[operator_stack[-1]]):
-                output.append(operator_stack.pop())
-            operator_stack.append(token)
-        elif token == '(':
-            operator_stack.append(token)
-        elif token == ')':
-            while operator_stack[-1] != '(':
-                output.append(operator_stack.pop())
-            operator_stack.pop()
+# Función para borrar el display
+def clear_display():
+    display.delete(0, tk.END)
 
-    while operator_stack:
-        output.append(operator_stack.pop())
+# Función para calcular la expresión
+def calculate_expression():
+    try:
+        result = eval(display.get())
+        clear_display()
+        display.insert(0, result)
+    except Exception as e:
+        clear_display()
+        display.insert(0, "Error")
 
-    return output
-
-def evaluate_postfix(expression):
-    stack = []
-    operators = {'+': lambda x, y: x + y, '-': lambda x, y: x - y,
-                 '*': lambda x, y: x * y, '/': lambda x, y: x / y}
-
-    for token in expression:
-        if isinstance(token, float):
-            stack.append(token)
-        elif token in operators:
-            operand2 = stack.pop()
-            operand1 = stack.pop()
-            result = operators[token](operand1, operand2)
-            stack.append(result)
-
-    return stack[0]
-
-def calculate(expression):
-    tokens = []
-    current = ''
-    for char in expression:
-        if char.isdigit() or char == '.':
-            current += char
-        else:
-            if current:
-                tokens.append(current)
-            current = ''
-            tokens.append(char)
-    if current:
-        tokens.append(current)
-
-    tokens = shunting_yard(tokens)
-    result = evaluate_postfix(tokens)
-    return result
-
+# Crea la ventana principal
 root = tk.Tk()
-root.title("Calculadora")
-root.geometry("350x450")  # Aqui se puede ajustar el tamaño de la ventana
-root.configure(bg="#005A82")  # Aqui se puede cambiar el color de fondo
+root.title("Calculator")
 
-entry = tk.Entry(root, font=("Arial", 20), justify="right", bg="#005A82", fg="#C89B3C")  # Color de fondo y texto
-entry.grid(row=0, column=0, columnspan=4, ipadx=10, ipady=10)
+# Crea el display
+display = tk.Entry(root, font=('Arial', 24), bg=GRAY, fg=BLACK, borderwidth=2, justify='right')
+display.grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky='nsew')
 
+# Crea un frame para los botones
+button_frame = tk.Frame(root, bg=DARK_BLUE)
+button_frame.grid(row=1, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
+
+# Configura los pesos de las filas y columnas
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
+button_frame.grid_rowconfigure(0, weight=1)
+for i in range(4):
+    button_frame.grid_columnconfigure(i, weight=1)
+
+# Define los botones y sus posiciones en una lista de tuplas
 buttons = [
-    ("7", 1, 0), ("8", 1, 1), ("9", 1, 2), ("/", 1, 3),
-    ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3),
-    ("1", 3, 0), ("2", 3, 1), ("3", 3, 2), ("-", 3, 3),
-    ("0", 4, 0), (".", 4, 1), ("C", 4, 2), ("+", 4, 3),
-    ("=", 5, 0)
+    ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
+    ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
+    ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
+    ('0', 4, 0), ('C', 4, 2), ('+', 4, 3), ('.', 5, 2),
 ]
 
-for (text, row, column) in buttons:
-    btn = tk.Button(root, text=text, font=("Arial", 15), padx=20, pady=10, bg="#C89B3C", fg="#005A82")  # Color de fondo y texto
-    btn.grid(row=row, column=column, ipadx=10, ipady=10)
-    btn.bind("<Button-1>", click)
+# Función para crear botones
 
+def create_button(text, row, column):
+    if text == 'C':
+        command = clear_display
+    elif text == '=':
+        command = calculate_expression
+    else:
+        command = lambda value=text: append_to_display(value)
+
+    button = tk.Button(button_frame, text=text, command=command, 
+                       font=('Arial', 18), bg=GOLD, fg=BLACK)
+    button.grid(row=row, column=column)
+    return button
+
+# Crea y coloca los botones en la grid
+for text, row, column in buttons:
+    if text == '0':
+        # El botón '0' se expande en dos columnas
+        create_button(text, row, column).grid(row=row, column=column, columnspan=2, sticky='nsew', padx=5, pady=5)
+    else:
+        create_button(text, row, column).grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
+
+# Botón de igual
+equal_button = create_button('=', 5, 3)
+equal_button.grid(columnspan=2, sticky='nsew')
+equal_button.config(command=calculate_expression)
+
+root.resizable(width=False, height=False)
+def is_math(expression):
+    """verificar que es una operacion matemática"""
+    texto = re.compile(r'^[-+*/0-9).(\s]+$')
+    return bool(texto.match(expression))
+
+# Ejecuta la aplicación
 root.mainloop()
