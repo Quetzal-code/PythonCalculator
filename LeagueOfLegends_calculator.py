@@ -9,7 +9,7 @@ GRAY = '#A09B8C'
 BLACK = '#010A13'
 
 # Función para agregar el valor al display
-def append_to_display(value):
+def mostrar(value):
     display.insert(tk.END, value)
 
 # Crea la ventana principal
@@ -65,14 +65,13 @@ buttons = [
 ]
 
 # Función para crear botones
-
 def create_button(text, row, column):
     if text == 'C':
         command = clear_display
     elif text == '=':
         command = calculate_expression
     else:
-        command = lambda value=text: append_to_display(value)
+        command = lambda value=text: mostrar(value)
 
     button = tk.Button(button_frame, text=text, command=command, 
                        font=('Arial', 18), bg=GOLD, fg=BLACK)
