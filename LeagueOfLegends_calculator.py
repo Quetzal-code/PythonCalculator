@@ -1,4 +1,4 @@
-"League of Legends Calculator"
+"""League of Legends Calculator"""""
 import tkinter as tk
 import re
 
@@ -12,23 +12,34 @@ BLACK = '#010A13'
 def append_to_display(value):
     display.insert(tk.END, value)
 
+# Crea la ventana principal
+root = tk.Tk()
+root.title("Calculator")
+root.iconbitmap("Calculator.ico")
+root.resizable(width=False, height=False)
+def son_numeros(expression):
+    """verificar que es una operacion matemática"""
+    texto = re.compile(r'^[-+*/0-9).(\s]+$')
+    return bool(texto.match(expression))
+
 # Función para borrar el display
 def clear_display():
     display.delete(0, tk.END)
 
 # Función para calcular la expresión
 def calculate_expression():
-    try:
-        result = eval(display.get())
+    operacion= display.get()
+    if  son_numeros(operacion):
+        try:
+            result = eval(operacion)
+            clear_display()
+            display.insert(0, result)
+        except Exception as e:
+            clear_display()
+            display.insert(0, "Error")
+    else :
         clear_display()
-        display.insert(0, result)
-    except Exception as e:
-        clear_display()
-        display.insert(0, "Error")
-
-# Crea la ventana principal
-root = tk.Tk()
-root.title("Calculator")
+        display.insert(0, "No valido")
 
 # Crea el display
 display = tk.Entry(root, font=('Arial', 24), bg=GRAY, fg=BLACK, borderwidth=2, justify='right')
@@ -80,12 +91,6 @@ for text, row, column in buttons:
 equal_button = create_button('=', 5, 3)
 equal_button.grid(columnspan=2, sticky='nsew')
 equal_button.config(command=calculate_expression)
-
-root.resizable(width=False, height=False)
-def is_math(expression):
-    """verificar que es una operacion matemática"""
-    texto = re.compile(r'^[-+*/0-9).(\s]+$')
-    return bool(texto.match(expression))
 
 # Ejecuta la aplicación
 root.mainloop()
