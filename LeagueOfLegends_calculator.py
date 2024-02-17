@@ -12,10 +12,10 @@ def mostrar(value):
     display.insert(tk.END, value)
 
 
-base_cal = tk.Tk()
-base_cal.title("Calculator")
-base_cal.iconbitmap("Calculator.ico")
-base_cal.resizable(width=False, height=False)
+calculadora = tk.Tk()
+calculadora.title("Calculator")
+calculadora.iconbitmap("Calculator.ico")
+calculadora.resizable(width=False, height=False)
 def son_numeros(expression):
     texto = re.compile(r'^[-+*/0-9).(\s]+$')
     return bool(texto.fullmatch(expression))
@@ -41,16 +41,16 @@ def calcular_resul():
         borrar_todo()
         display.insert(0, "No valido")
 
-display = tk.Entry(base_cal, font=('Arial', 24), bg=GRAY, fg=BLACK, borderwidth=2, justify='right')
+display = tk.Entry(calculadora, font=('Arial', 24), bg=GRAY, fg=BLACK, borderwidth=2, justify='right')
 display.grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky='nsew')
 
 
-button_frame = tk.Frame(base_cal, bg=DARK_BLUE)
+button_frame = tk.Frame(calculadora, bg=DARK_BLUE)
 button_frame.grid(row=1, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
 
 
-base_cal.grid_rowconfigure(0, weight=1)
-base_cal.grid_columnconfigure(0, weight=1)
+calculadora.grid_rowconfigure(0, weight=1)
+calculadora.grid_columnconfigure(0, weight=1)
 button_frame.grid_rowconfigure(0, weight=1)
 for i in range(4):
     button_frame.grid_columnconfigure(i, weight=1)
@@ -73,7 +73,6 @@ def crear_boton(text, row, column):
 
 for text, row, column in buttons:
     if text == '0':
-        # El botón '0' se expande en dos columnas
         crear_boton(text, row, column).grid(row=row, column=column, columnspan=2, sticky='nsew', padx=5, pady=5)
     else:
         crear_boton(text, row, column).grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
@@ -82,4 +81,4 @@ equal_button = crear_boton('=', 5, 3)
 equal_button.grid(columnspan=2, sticky='nsew')
 equal_button.config(command=calcular_resul)
 
-base_cal.mainloop()
+calculadora.mainloop()
