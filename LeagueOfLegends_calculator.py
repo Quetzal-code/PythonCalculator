@@ -12,7 +12,8 @@ def mostrar(value):
 
 calculadora = tk.Tk()
 calculadora.title("Calculadora")
-calculadora.iconbitmap("Calculadora.ico")
+calculadora.iconbitmap("Calculator.ico")
+calculadora.geometry("280x400+180+120")
 calculadora.resizable(width=False, height=False)
 def son_numeros(expression):
     texto = re.compile(r'^[-+*/0-9).(\s]+$')
