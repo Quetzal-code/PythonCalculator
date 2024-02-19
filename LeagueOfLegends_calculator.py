@@ -15,6 +15,7 @@ calculadora.title("Calculadora")
 calculadora.iconbitmap("Calculator.ico")
 calculadora.geometry("280x400+180+120")
 calculadora.resizable(width=False, height=False)
+
 def son_numeros(expression):
     texto = re.compile(r'^[-+*/0-9).(\s]+$')
     return bool(texto.fullmatch(expression))
@@ -66,6 +67,7 @@ def crear_boton(text, row, column):
                        font=('Arial', 18), bg=GOLD, fg=BLACK)
     button.grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
     return button
+
 
 for text, row, column in buttons:
     if text == '0':
