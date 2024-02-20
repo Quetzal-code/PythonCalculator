@@ -13,7 +13,7 @@ def mostrar(value):
 calculadora = tk.Tk()
 calculadora.title("Calculadora")
 calculadora.iconbitmap("Calculator.ico")
-calculadora.geometry("280x400+180+120")
+calculadora.geometry("260x380+170+120")
 calculadora.resizable(width=False, height=False)
 
 def son_numeros(expression):
