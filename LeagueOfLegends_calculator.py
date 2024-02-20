@@ -57,11 +57,11 @@ for i in range(4):
     button_frame.grid_columnconfigure(i, weight=1)
 
 buttons = [
-    ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
-    ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
+    ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('Del', 1, 3),
+    ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('C', 2, 3),
     ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
-    ('0', 4, 0), ('Del', 4, 1),('C', 4, 2), ('+', 4, 3), 
-    ('.', 5, 2), ('=', 5, 3),
+    ('0', 4, 0), ('.', 4, 2), ('+', 4, 3), 
+    ('/', 5, 0), ('*', 5, 1), ('=', 5, 2),
 ]
 
 def crear_boton(text, row, column):
@@ -75,8 +75,10 @@ def crear_boton(text, row, column):
 
 
 for text, row, column in buttons:
-    if text == '0':
-        crear_boton(text, row, column).grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
+    if text == '=' :
+        crear_boton(text, row, column).grid(row=row, column=column, columnspan=2, sticky='nsew', padx=5, pady=5)
+    elif text == '0' :
+        crear_boton(text, row, column).grid(row=row, column=column, columnspan=2, sticky='nsew', padx=5, pady=5)
     else:
         crear_boton(text, row, column).grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
 
