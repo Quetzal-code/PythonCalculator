@@ -67,17 +67,17 @@ buttons = [
     ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
     ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
     ('0', 4, 0), ('C', 4, 1), ('+', 4, 3), ('.', 5, 2),
-    ('<-', 4, 2), ('=', 5, 3),
+    ('Del', 4, 2), ('=', 5, 3),
 ]
 
 # Función para crear botones
 def crear_boton(text, row, column):
-    command = lambda: mostrar(text) if text not in ['C', '=', '<-'] else None
+    command = lambda: mostrar(text) if text not in ['C', '=', 'Del'] else None
     if text == 'C':
         command = borrar_todo
     elif text == '=':
         command = calcular_resul
-    elif text == '<-':
+    elif text == 'Del':
         command = retroceso
     
     button = tk.Button(button_frame, text=text, command=command,
