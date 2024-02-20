@@ -23,6 +23,10 @@ def son_numeros(expression):
 def borrar_todo():
     display.delete(0, tk.END)
 
+def borra():
+    current_text = display.get()
+    display.delete(len(current_text)-1, tk.END)
+
 def calcular_resul():
     operacion= display.get()
     if  son_numeros(operacion):
@@ -56,11 +60,12 @@ buttons = [
     ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
     ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
     ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
-    ('0', 4, 0), ('C', 4, 2), ('+', 4, 3), ('.', 5, 2),
+    ('0', 4, 0), ('Del', 4, 1),('C', 4, 2), ('+', 4, 3), 
+    ('.', 5, 2), ('=', 5, 3),
 ]
 
 def crear_boton(text, row, column):
-    button_commands = {'C': borrar_todo, '=': calcular_resul}
+    button_commands = {'C': borrar_todo, '=': calcular_resul, 'Del': borra, '=': calcular_resul}
     command = button_commands.get(text, lambda: mostrar(text))
 
     button = tk.Button(button_frame, text=text, command=command, 
@@ -71,12 +76,8 @@ def crear_boton(text, row, column):
 
 for text, row, column in buttons:
     if text == '0':
-        crear_boton(text, row, column).grid(row=row, column=column, columnspan=2, sticky='nsew', padx=5, pady=5)
+        crear_boton(text, row, column).grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
     else:
         crear_boton(text, row, column).grid(row=row, column=column, sticky='nsew', padx=5, pady=5)
-
-boton_igual = crear_boton('=', 5, 3)
-boton_igual.grid(columnspan=2, sticky='nsew')
-boton_igual.config(command=calcular_resul)
 
 calculadora.mainloop()
